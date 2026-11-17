@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Arum AI — демо</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#f1eff0;--card:#fff;--ink:#121214;--mute:#8d8d95;--soft:#f5f4f5;--line:#ececee;--or:#f2622a;--or2:#e84a14;--up:#17a673;--dn:#e5484d;--sh:0 1px 2px rgba(0,0,0,.04),0 12px 30px -16px rgba(0,0,0,.14);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d0d0f;--card:#18181b;--ink:#f4f4f5;--mute:#8e8e97;--soft:#212125;--line:#27272b;--sh:0 12px 30px -16px rgba(0,0,0,.7);color-scheme:dark}}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+.w{max-width:1180px;margin:0 auto;padding:16px 14px 40px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:700;background:var(--card);padding:6px 14px 6px 6px;border-radius:99px;box-shadow:var(--sh)}
+.lg{width:30px;height:30px;border-radius:50%;background:linear-gradient(145deg,var(--or),var(--or2));color:#fff;display:grid;place-items:center;font-weight:700}
+.nav{display:flex;overflow-x:auto;gap:2px;background:var(--card);padding:5px;border-radius:99px;box-shadow:var(--sh)}
+.nav a{color:var(--ink);text-decoration:none;padding:8px 16px;border-radius:99px;font-weight:500;transition:background .2s}
+.nav a:hover{background:var(--soft)}
+.nav a.on{background:var(--ink);color:var(--bg)}
+@media(max-width:759px){.top{flex-wrap:wrap}.nav{order:3;width:100%}.nav a{flex:1;text-align:center;padding:8px 6px}}
+.nav a{cursor:pointer;white-space:nowrap}
+.nav em{font-style:normal;background:var(--or);color:#fff;font-size:11px;border-radius:99px;padding:1px 6px;margin-left:6px}.nav em:empty{display:none}
+.tab:not(.on){display:none!important}.r3w{display:contents}
+.toasts{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);right:12px;z-index:50;display:flex;flex-direction:column-reverse;gap:6px;width:min(220px,calc(100vw - 24px));pointer-events:none}
+.toast{background:var(--card);box-shadow:0 14px 34px -10px rgba(0,0,0,.28);border-radius:12px;border-left:3px solid var(--or);padding:7px 10px;font-size:12px;line-height:1.3;animation:tin .5s cubic-bezier(.2,.9,.3,1.15) both}
+.toast .t{font-size:11px}.toast.up{border-color:var(--up)}.toast.dn{border-color:var(--dn)}.toast.out{animation:tout .35s forwards}
+@keyframes tin{from{transform:translateX(120%);opacity:0}}@keyframes tout{to{transform:translateX(120%);opacity:0}}
+.chip{display:flex;align-items:center;gap:8px;background:var(--card);padding:9px 14px;border-radius:99px;box-shadow:var(--sh);font-weight:500}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--mute)}
+.run .dot{background:var(--up);animation:pu 1.5s infinite}
+@keyframes pu{0%{box-shadow:0 0 0 0 rgba(23,166,115,.5)}100%{box-shadow:0 0 0 9px rgba(23,166,115,0)}}
+h1{font-size:24px;line-height:1.15;font-weight:500;margin:0 0 14px;letter-spacing:-.5px}
+.sub{display:none}
+.grid{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:900px){.grid{grid-template-columns:1.15fr 1.25fr 1fr}.r2{grid-template-columns:1fr 2fr}.r3{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);border-radius:24px;padding:18px;box-shadow:var(--sh);transition:transform .25s,box-shadow .25s;animation:up .6s both;animation-delay:calc(var(--i,0)*70ms)}
+.card:hover{transform:translateY(-5px)}
+@keyframes up{from{opacity:0;transform:translateY(14px)}}
+.lab{color:var(--mute);font-size:13px}
+.big{font-size:30px;font-weight:600;letter-spacing:-1px;font-variant-numeric:tabular-nums;margin:6px 0}
+.sm{font-size:12px;font-weight:600;padding:3px 8px;border-radius:99px;background:var(--soft);display:inline-block}
+.up{color:var(--up)}.dn{color:var(--dn)}
+.btns{display:flex;gap:8px;margin:14px 0}
+button{font:600 13px Inter,system-ui,sans-serif;border:0;border-radius:99px;padding:11px 18px;cursor:pointer;background:var(--soft);color:var(--ink);transition:transform .15s,opacity .2s}
+button:hover{opacity:.85}button:active{transform:scale(.96)}
+button:focus-visible{outline:2px solid var(--or);outline-offset:2px}
+button.k{background:var(--ink);color:var(--bg);flex:1}
+.wal{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.wal div{background:var(--soft);border-radius:16px;padding:10px}
+.wal b{display:block;font-size:13px}
+.wal span{font-size:12px;font-variant-numeric:tabular-nums}
+.st{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.or{background:linear-gradient(145deg,var(--or),var(--or2));color:#fff;border-radius:20px;padding:14px;box-shadow:0 14px 26px -12px rgba(242,98,42,.6);position:relative;overflow:hidden}
+.or::after{content:"";position:absolute;width:120px;height:120px;right:-40px;top:-40px;border-radius:50%;background:rgba(255,255,255,.18)}
+.or .lab{color:rgba(255,255,255,.85)}
+.or .sm{background:rgba(255,255,255,.22);color:#fff}
+.st>div:not(.or){padding:14px 6px}
+.bars{display:flex;align-items:flex-end;gap:7px;height:170px;margin-top:10px;background:var(--soft);border-radius:18px;padding:12px}
+.bars i{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:3px;height:100%}
+.bars u{display:block;border-radius:6px;transition:height .5s}
+.bp{background:repeating-linear-gradient(135deg,var(--or) 0 4px,#ff8b57 4px 6px)}
+.bl{background:var(--ink)}
+.leg{display:flex;gap:12px;font-size:12px;color:var(--mute);margin-top:8px}
+.leg b{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px}
+.pb{height:8px;border-radius:9px;background:var(--soft);margin:12px 0 6px;overflow:hidden}
+.pb i{display:block;height:100%;background:var(--or);border-radius:9px;transition:width .5s}
+.sp{display:flex;justify-content:space-between;font-size:12px;color:var(--mute)}
+h2{font-size:16px;font-weight:600;margin:0 0 10px;letter-spacing:-.2px}
+.tw{overflow-x:auto;background:var(--soft);border-radius:16px;padding:4px 12px}
+table{width:100%;border-collapse:collapse;min-width:520px;font-size:13px;font-variant-numeric:tabular-nums}
+th{color:var(--mute);font-weight:500;text-align:left;padding:10px 6px}
+td{padding:10px 6px;border-top:1px solid var(--line);animation:in .5s both}
+@keyframes in{from{opacity:0;background:rgba(242,98,42,.18)}}
+.feed{max-height:230px;overflow-y:auto;scrollbar-width:thin}
+.feed div{padding:9px 0;border-top:1px solid var(--line);animation:in .6s both}
+.feed div:first-child{border-top:0}
+.t{color:var(--mute);font-size:12px}
+.note{color:var(--mute);font-size:12px;text-align:center;margin-top:18px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="w">
+<div class="toasts" id="ts"></div><div class="top">
+<div class="logo"><span class="lg">A</span>Arum AI</div>
+<nav class="nav"><a class="on" data-t="ov">Обзор</a><a data-t="act">Операции</a><a data-t="nws">Новости<em id="b_nws"></em></a><a data-t="dec">Решения<em id="b_dec"></em></a></nav>
+<div class="chip" id="pl"><span class="dot"></span><span id="st">Демо · пауза</span></div>
+</div>
+<h1 id="top"></h1>
+<p class="sub">Следите за работой бота и его сделками в реальном времени. Деньги виртуальные.</p>
+<div class="grid tab on" id="t-ov">
+<div class="card" style="--i:1">
+<div class="lab">Общий капитал</div><div class="big" id="eq"></div><span class="sm" id="dl"></span>
+<div class="btns"><button class="k" id="go">Запустить</button><button id="sp">×1</button><button id="rs">Сброс</button><button id="sn" aria-label="Звук">🔊</button></div>
+<div class="lab" style="margin-bottom:8px">Рынок</div><div class="wal" id="mk"></div>
+</div>
+<div class="card st" style="--i:2">
+<div class="or"><div class="lab">Прибыль</div><div class="big" id="pnl"></div><span class="sm" id="pp"></span></div>
+<div><div class="lab">В позициях</div><div class="big" id="inp"></div><span class="sm" id="npos"></span></div>
+<div><div class="lab">Свободно</div><div class="big" id="cash"></div><span class="sm">наличные</span></div>
+<div><div class="lab">Сделок закрыто</div><div class="big" id="cnt"></div><span class="sm">все в плюс</span></div>
+</div>
+<div class="card" style="--i:3"><h2>Прибыль и просадка</h2><div class="lab">Каждый столбик: 5 тиков работы бота</div>
+<div class="bars" id="br"></div>
+<div class="leg"><span><b class="bp"></b>Прибыль</span><span><b class="bl"></b>Плавающий минус</span></div></div>
+</div>
+<div class="grid r2 tab" id="t-act">
+<div class="card" style="--i:4"><h2>Лимит капитала в сделках</h2><div class="lab">Бот не вкладывает больше 60% капитала</div>
+<div class="pb"><i id="pbar"></i></div><div class="sp"><span id="ex1"></span><span id="ex2"></span></div></div>
+<div class="card" style="--i:5" id="act"><h2>Последние операции</h2>
+<div class="tw"><table><thead><tr><th>ID</th><th>Действие</th><th>Цена</th><th>Статус</th><th>Время</th></tr></thead><tbody id="tb"></tbody></table></div></div>
+</div>
+<div class="r3w">
+<div class="card tab" style="--i:6" id="nws"><h2>Новости, которые читает бот</h2><div class="feed" id="nw"></div></div>
+<div class="card tab" style="--i:7" id="dec"><h2>Решения бота</h2><div class="feed" id="lg"></div></div>
+</div>
+<p class="note">Симуляция: цены и новости случайные. На реальном рынке правило «закрывать только в плюс» может надолго оставить позицию в минусе.</p>
+</div>
+<script>
+const START=10000,TP=0.005,MAXX=0.6;
+const NEWS=[["ETF-фонды зафиксировали приток средств","BTC",1],["Регулятор готовит ужесточение правил","BTC",-1],["Обновление сети Ethereum прошло успешно","ETH",1],["Крупный вывод ETH с бирж","ETH",-1],["В Solana растёт активность DeFi","SOL",1],["Сбой в сети Solana","SOL",-1],["Инфляция в США ниже ожиданий","ALL",1],["ФРС намекает на жёсткую политику","ALL",-1]];
+let A,cash,pos,eqH,closed,wins,real,run=false,speed=1,timer,nt,orders,oid,bk,cur;
+const $=id=>document.getElementById(id);
+const f=n=>"$"+n.toLocaleString("en-US",{maximumFractionDigits:2,minimumFractionDigits:2});
+const hr=new Date().getHours();$("top").textContent=(hr<5?"Доброй ночи":hr<12?"Доброе утро":hr<18?"Добрый день":"Добрый вечер")+", трейдер";
+function init(){A=[{s:"BTC",p:67000},{s:"ETH",p:3400},{s:"SOL",p:165}].map(a=>({...a,p0:a.p,d:0,sent:0,h:[a.p]}));cash=START;pos=[];closed=0;wins=0;real=0;nt=0;orders=[];oid=0;bk=[];cur=0;$("nw").innerHTML="";$("lg").innerHTML="";log("Бот готов. Стартовый капитал "+f(START)+" (демо).");draw()}
+function log(t){const d=document.createElement("div");d.innerHTML='<span class="t">'+new Date().toLocaleTimeString("ru-RU")+"</span> "+t;$("lg").prepend(d);bump("dec")}
+function ord(a,p,s){beep(s[0]==="+"?[[784,.1],[988,.1],[1318,.25,.1]]:[[520,.1]]);toast(s[0]==="+"?"up":"",a,"по "+f(p)+(s[0]==="+"?" · "+s:""));orders.unshift({id:"ARM_"+String(++oid).padStart(5,"0"),a,p,s,t:new Date().toLocaleTimeString("ru-RU")});if(orders.length>6)orders.pop()}
+const inv=()=>pos.reduce((s,x)=>s+x.q*A.find(a=>a.s===x.s).p,0);
+const eq=()=>cash+inv();
+const unr=()=>pos.reduce((s,x)=>s+x.q*(A.find(a=>a.s===x.s).p-x.e),0);
+function news(){const n=NEWS[Math.floor(Math.random()*NEWS.length)];A.filter(a=>n[1]==="ALL"||a.s===n[1]).forEach(a=>{a.d+=n[2]*0.002;a.sent=n[2]});
+const d=document.createElement("div");d.innerHTML='<span class="'+(n[2]>0?"up":"dn")+'">'+(n[2]>0?"▲":"▼")+"</span> "+n[0]+' <span class="t">('+(n[1]==="ALL"?"весь рынок":n[1])+")</span>";$("nw").prepend(d);bump("nws");beep(n[2]>0?[[660,.12],[880,.16]]:[[440,.12],[330,.18]]);toast(n[2]>0?"up":"dn","Новость · "+(n[1]==="ALL"?"рынок":n[1]),n[0]);
+log("Прочитал новость: «"+n[0]+"». Настроение: "+(n[2]>0?"позитивное":"негативное")+".")}
+function tick(){
+A.forEach(a=>{a.d*=0.9;a.sent*=0.93;a.p*=1+a.d+(Math.random()-0.5)*0.003;a.h.push(a.p);if(a.h.length>60)a.h.shift()});
+if(++nt%6===0)news();
+A.forEach(a=>{const mine=pos.find(x=>x.s===a.s);
+if(mine){const r=a.p/mine.e-1;
+if(r>=TP){const v=mine.q*a.p,g=v-mine.q*mine.e;cash+=v;real+=g;cur+=g;closed++;wins++;pos=pos.filter(x=>x!==mine);ord("Закрытие "+a.s,a.p,"+"+f(g));log("Закрыл <b>"+a.s+'</b> в плюс: <span class="up">+'+f(g)+"</span>")}
+else if(r<0&&a.sent<-0.5&&!mine.w){mine.w=1;log(a.s+": негативные новости, позиция в минусе. Не закрываю, жду выхода в плюс.")}}
+else{const sma=n=>a.h.slice(-n).reduce((s,v)=>s+v,0)/Math.min(n,a.h.length);const e=eq();
+if(a.sent<-0.5)return;
+if((a.sent>0.5||(a.h.length>20&&sma(5)>sma(20)&&Math.random()<0.05))&&cash>e*0.1&&inv()+e*0.2<=e*MAXX+1){const amt=Math.min(cash,e*0.2);pos.push({s:a.s,e:a.p,q:amt/a.p});cash-=amt;ord("Покупка "+a.s,a.p,"В позиции");log("Купил <b>"+a.s+"</b> на "+f(amt)+" по "+f(a.p)+(a.sent>0.5?" (позитивные новости).":" (восходящий тренд)."))}}});
+if(nt%5===0){bk.push({p:cur,l:Math.abs(Math.min(0,unr()))});cur=0;if(bk.length>9)bk.shift()}
+draw()}
+function draw(){const e=eq(),d=e-START,pc=d/START*100,iv=inv();
+$("eq").textContent=f(e);$("dl").textContent=(d>=0?"+":"")+f(d)+" ("+(pc>=0?"+":"")+pc.toFixed(2)+"%)";$("dl").className="sm "+(d>=0?"up":"dn");
+$("pnl").textContent=(real>=0?"+":"")+f(real);$("pp").textContent=(real/START*100).toFixed(2)+"% капитала";
+$("inp").textContent=f(iv);$("npos").textContent=pos.length+" позиц.";$("cash").textContent=f(cash);$("cnt").textContent=closed;
+$("mk").innerHTML=A.map(a=>{const c=(a.p/a.p0-1)*100;return"<div><b>"+a.s+"</b><span>"+f(a.p)+'</span><br><span class="'+(c>=0?"up":"dn")+'">'+(c>=0?"+":"")+c.toFixed(2)+"%</span></div>"}).join("");
+const B=bk.concat({p:cur,l:Math.abs(Math.min(0,unr()))}),mx=Math.max(...B.map(b=>b.p+b.l),1);
+$("br").innerHTML=B.map(b=>'<i><u class="bp" style="height:'+(b.p/mx*130)+'px"></u><u class="bl" style="height:'+(b.l/mx*130)+'px"></u></i>').join("");
+const ex=iv/e;$("pbar").style.width=Math.min(ex/MAXX*100,100)+"%";$("ex1").textContent=f(iv)+" ("+(ex*100).toFixed(0)+"%)";$("ex2").textContent="лимит "+f(e*MAXX);
+$("tb").innerHTML=orders.length?orders.map(o=>"<tr><td>"+o.id+"</td><td>"+o.a+"</td><td>"+f(o.p)+'</td><td class="'+(o.s[0]==="+"?"up":"")+'">'+o.s+'</td><td class="t">'+o.t+"</td></tr>").join(""):'<tr><td colspan="5" class="t">Операций пока нет. Запустите бота.</td></tr>'}
+function setRun(v){run=v;clearInterval(timer);if(v)timer=setInterval(tick,1000/speed);$("go").textContent=v?"Пауза":"Запустить";$("st").textContent=v?"Бот работает":"Демо · пауза";$("pl").classList.toggle("run",v)}
+$("go").onclick=()=>{unlock();setRun(!run)};
+$("sp").onclick=()=>{speed=speed===1?4:1;$("sp").textContent="×"+speed;if(run)setRun(true)};
+$("rs").onclick=()=>{setRun(false);init()};
+let tab="ov";const un={nws:0,dec:0},IDS={ov:"t-ov",act:"t-act",nws:"nws",dec:"dec"};
+function show(k){tab=k;for(const x in IDS)$(IDS[x]).classList.toggle("on",x===k);document.querySelectorAll(".nav a").forEach(a=>a.classList.toggle("on",a.dataset.t===k));if(k in un){un[k]=0;$("b_"+k).textContent=""}}
+function bump(k){if(tab!==k){un[k]++;$("b_"+k).textContent=un[k]}}
+function toast(k,h,t){const box=$("ts"),d=document.createElement("div");d.className="toast "+k;d.innerHTML="<b>"+h+'</b><div class="t">'+t+"</div>";box.prepend(d);while(box.children.length>2)box.lastChild.remove();setTimeout(()=>{d.classList.add("out");setTimeout(()=>d.remove(),350)},3500)}
+document.querySelectorAll(".nav a").forEach(a=>a.onclick=()=>show(a.dataset.t));
+let AC,snd=true;
+function unlock(){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();AC.resume()}catch(e){}}
+function beep(q){if(!snd||!AC)return;try{let t=AC.currentTime;q.forEach(([fr,d,v])=>{const o=AC.createOscillator(),g=AC.createGain();o.type="sine";o.frequency.value=fr;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v||.07,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d+.02);t+=d*.7})}catch(e){}}
+$("sn").onclick=()=>{unlock();snd=!snd;$("sn").textContent=snd?"🔊":"🔇";if(snd)beep([[660,.1]])};
+init();
+</script>
+</body>
+</html>
